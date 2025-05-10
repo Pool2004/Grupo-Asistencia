@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aseguradora Grupo Asistencia</title>
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./Cliente/assets/css/normalize.css">
+    <link rel="stylesheet" href="./Cliente/assets/css/login.css">
+
+    <!-- Icono -->
+    <link rel="icon" type="png" href="./Cliente/public/images/icon-page.ico">
+
+    <!-- Iconos -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+<body>
+    
+    <!-- General Pos -->
+    <div class="container">
+
+        <!-- columna izquierda -->
+        <div class="login-column">
+
+            <!-- Logo -->
+            <div class="logo">
+                <a href="./Cliente/views/dashboard.html"><img src="./Cliente/public/images/login-asistencia-2.png" alt="logo"></a>
+                <span>Inicia sesión y toma el control</span>
+            </div>
+
+            <!-- formulario se sesión -->
+            <div class="form-container">
+
+                <form action="">
+                    <div class="input-group">
+                        <input type="email" id="userEmail" class="input-field" placeholder="" required autocomplete="off">
+                        <label for="userName" class="input-label">Correo electrónico</label> 
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" class="input-field" placeholder="" required autocomplete="off">
+                        <label for="password" class="input-label">Contraseña</label> 
+                    </div>
+
+                    <a href="./Cliente/views/recuperar.html"><span class="forgot-password">¿Olvidaste tu contraseña?</span></a>
+                    
+                    <button id="loginButton">Acceder </button>
+
+                    <div class="signup-link">
+                        <span>¿Aún no tienes una cuenta?</span>
+                        <a href="./Cliente/views/registro.html">Registrate</a>
+                    </div>
+
+                </form>
+
+                
+            </div>
+
+        </div>
+
+        <!-- columna derecha -->
+        <div class="image-column">
+            <!--<img src="./assets/img/cliente-pos.svg" alt="Login Image"> -->
+        </div> 
+
+    </div>
+
+    <!-- Script login -->
+    <script src="./Cliente/assets/utils/login.js" defer></script>
+
+</body>
+</html>

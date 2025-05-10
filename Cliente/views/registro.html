@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aseguradora Grupo Asistencia</title>
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="../assets/css/normalize.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+
+    <!-- Icono -->
+    <link rel="icon" type="png" href="../public/images/icon-page.ico">
+
+    <!-- Iconos -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body  class="registro">
+    
+    <!-- General Pos -->
+    <div class="container">
+        
+        <!-- columna izquierda -->
+        <div class="login-column">
+
+            <div class="logo-cuenta"> 
+                <img src="/assets/img/icono.png" alt="">
+                <span class="logo-register">Crea tu cuenta</span>
+            </div>
+
+            <!-- Logo -->
+            <div class="logo-register">
+                <p class="p-register color">Grupo Asistencia, Tú mejor opción</p>
+            </div>
+
+            <!-- formulario se sesión -->
+            <div class="form-container">
+                <form>
+                    
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input type="text" id="userName" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Nombres</label> 
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" id="userLastName" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Apellidos</label> 
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <select name="" id="" class="input-field select">
+                                <option value="">+57</option> 
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="tel" id="userPhone" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Teléfono celular</label> 
+                        </div>             
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input type="email" id="userEmail" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Correo</label> 
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" id="userEmailConf" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Confirmar Correo</label> 
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input type="password" id="userPass" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Contraseña</label> 
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="userPassConf" class="input-field" placeholder="">
+                            <label for="userName" class="input-label">Confirmar Contraseña</label> 
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="checkbox" id="" class="input-checkbox">
+                        <span class="p-terminos">Acepto los <a href="https://www.grupoasistencia.com/Politicas-Privacidad/Aviso_de_Privacidad_Seguros_Grupo_Asistencia_Ltda.pdf" target="_blank" class="terminos">Términos</a> y <a href="https://www.grupoasistencia.com/Politicas-Privacidad/Politica_de_Proteccion_de_Datos_Personales_Seguros_Grupo_Asistencia_Ltda.pdf" target="_blank" class="terminos">Política de privacidad</a></span>
+                    </div>
+
+                    <button id="registerButton">Registrarse</button>
+
+                    <div class="register-url">
+                        <span>¿Ya tienes cuenta?</span>
+                        <a href="/index.html" class="inicio-register">Inicia sesión</a>
+                    </div> 
+                </form>
+            </div>
+        </div>
+
+        <!-- columna derecha -->
+        <div class="image-column">
+            <!-- <img src="/assets/img/cliente-pos2.svg" alt="Clin"> -->
+        </div>
+    </div>
+
+    <script src="../assets/utils/register.js" defer></script>
+</body>
+</html>

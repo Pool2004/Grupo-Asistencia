@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+a {
+    text-decoration: none !important;
+}
+
+li {
+    list-style: none; 
+}
+
+body {
+    font-family: 'Poppins', serif;
+}
+
+/*================================================== Colores de la paleta */
+:root {
+    --primary-color: #10305c;
+    --secondary-color: #1868b8;
+    --Third-color: #fff;
+    --Fourth-color: #0b0f19;
+    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+    --titulo-color: #1868b8;
+    --subtitulo-color: #152792;
+}
+
+/*================================================== Estilos principal */
+.wrapper {
+    display: flex; 
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--Third-color);
+}
+
+/*================================================== Estilos sidebar */
+#sidebar {
+    width: 70px;
+    min-width: 70px;
+    transition: all 0.3s ease-in-out;
+    /* background: linear-gradient(180deg, #000000 -5.69%, #3533cd 107.18%);     */
+    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    height: 98vh; /* Ligeramente más corto para crear espacio */
+    position: sticky;
+    top: 8px; /* Pequeño espacio desde arriba */
+    margin: 8px 0 8px 8px; /* Crea espacio alrededor del sidebar */
+    overflow: visible !important; 
+    z-index: 1000; 
+    box-shadow: var(--box-shadow);
+    border-radius: 16px; /* Redondea todas las esquinas */
+}
+
+/* .d-flex {
+    padding: 1rem 1rem 0 0;
+} */
+
+/*alternador de sidebar btn*/
+#sidebar.expand{
+    width: 250px;
+    min-width: 250px;
+}
+
+/* :not() elimina el elemento que no cumple la condicion */
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span { 
+    display: none;
+}
+
+.toggle-btn {
+    width: 30px;
+    height: 30px;
+    color: var(--Third-color);
+    border-radius: 0.4rem;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+}
+
+.toggle-btn i {
+    color: var(--Third-color);
+    font-size: 20px;
+}
+
+/* hace que el texto aparezca al expandir el sidebar */
+#sidebar.expand .sidebar-logo,
+#sidebar.expand a.sidebar-link span { 
+    animation: fadeIn .25s ease;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.sidebar-logo a {
+    color: var(--Third-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+
+/*================================== Estilos sidebar nav */
+.sidebar-nav {
+    padding: 1rem 0;
+    flex: 1 auto;
+    z-index: 10;  
+}
+
+a.sidebar-link{
+    padding:  .625rem 1.625rem;
+    color: var(--Third-color);
+    display: block;
+    white-space: nowrap; /* evita que el texto se divida en varias lineas */
+    font-weight: 700;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-link i, 
+.dropdown-item i {
+    font-size: 1.1rem;
+    margin-right: .8rem;
+}
+
+a.sidebar-link:hover {
+    background-color:  rgba(255, 255, 255, .075);
+    border-left: 5px solid var(--secondary-color);
+}
+
+
+/* venta ahora */
+a.sidebar-link.plus {
+    background-color: var(--Third-color);
+    border-radius: 0.4rem;
+    color: var(--secondary-color);
+}
+
+/* Submenus */
+.sidebar-item {
+    position: relative;
+}
+
+/* *****************************hace que el submenu no se vea al colapsar el sidebar */
+/* Submenu con items de color azul */
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {  
+    position: absolute;
+    top: 0;
+    left: 70px;
+    /* background: linear-gradient(180deg, #000000 -5.69%, #3533cd 107.18%);     */
+    background: var(--primary-color);
+    padding: 0;
+    min-width: 15rem;
+    display: none;
+}
+
+/* *****************************Muestra el submenu al pasar el mouse por encima del elemento padre */
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+    display: block;
+    max-height: 15em; /*em se usa para evitar que el submenu se vea al colapsar el sidebar*/
+    width: 100%;
+    opacity: 1; /* opacity 1 para que se vea el submenu */
+}
+
+/* *****************************Muestra el submenu al hacer click en el elemento padre mas a la izquierda */
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown .sidebar-dropdown{
+    left: 130px;
+}
+
+/*hace que la flecha se vea al expandir el sidebar, ICONO FLECHA */
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after { 
+    border: solid;
+    border-width: 0 .075rem 0.075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+/* es para que la flecha se vea al expandir el submenu, ICONO FLECHA  */
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapse::after { 
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+/* es para que la flecha se vea al expandir el submenu, ICONO FLECHA  */
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"][aria-expanded="true"]::after {
+    transform: rotate(-135deg);
+}
+
+.sidebar-dropdown .sidebar-link {
+    position: relative;
+    padding-left: 3rem;
+    transition: all 0.5s;
+}
+
+/* Lineas de separacion entre los elementos del submenu */
+.sidebar-dropdown a.sidebar-link::before{
+    content: "";
+    height: 0.125rem;
+    width: 0.373rem;
+    background-color: var(--secondary-color);
+    position: absolute;
+    left: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.5s;
+}
+
+/* colores a los submenu */
+.sidebar-dropdown a.sidebar-link:hover {
+    background: transparent;
+    border-left: 3px solid transparent;
+    padding-left: 3.8rem;
+}
+
+
+/*================================== Estilos navbar e img de usuario */
+.navbar {
+    background-color: var(--Third-color);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 10px; /* Espacio alrededor de la navbar */
+}
+
+.navbar-expand .navbar-collapse {
+    min-width: 200px;
+}
+
+/* icono notificacion */
+
+.avatar {
+    object-fit: cover;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.me-3{
+    color: var(--secondary-color);
+}
+
+
+/*================================== Estilos cards admin */
+
+/* boton de semana */
+button.btn-sm {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+}  
+button.btn-sm:hover {
+    background-color: var(--primary-color);
+}
+.btn-outline-primary {
+    color: #fff; 
+}
+
+/* carda estilos items */
+.cards {
+    background-color: var(--Third-color);
+    transition: .4s ease;
+    cursor: pointer;
+    color: var(--Fourth-color);
+    margin-bottom: 1rem;
+    border-color: rgba(231, 234, 243, 0.7);
+    border-radius: 15px;
+}
+
+.cards h6 {
+    text-transform: uppercase;
+    font-size: .8rem;
+}
+.cards:hover {
+    color: var(--secondary-color);
+    transform: translateY(-10.5px);
+}
+
+/* Estilos tablas */
+.table>thead tr {
+    color: var(--Third-color);
+
+}
+
+tr.destacar th {
+    background-color: var(--primary-color);
+    color: var(--Third-color);
+}
+
+
+/* Principal  */
+.content {
+    flex: 11 auto; /* ocupa el espacio restante del sidebar */
+}
+
+/* titulos cards */
+h3.fw-bold{
+    color: var(--titulo-color);
+}
+
+h6.fw-bold{
+    color: var(--subtitulo-color);
+}
+
+
+
+/*================================== Estilos de footer */
+footer {
+    /* background-color: #f5f5f5; */
+    border-top: 1px solid var(--secondary-color);
+    padding: 1rem .875rem;
+}
+
+.footer-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--Fourth-color);
+}
+
+a.text-body-secondary {
+    color: var(--Fourth-color);
+}
+
+
+/*================================== Estilos Ventas */
+.card-header {
+    background: transparent;
+    border: transparent;
+}
+
+.cursor {
+    cursor: pointer ;
+}
+
+/* input de busqueda */
+.form-control-sm{
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 0.4rem;
+    color: #3e4455;
+    height: calc(2.44375rem + 2px);
+}
+.form-control-sm:focus {
+    outline: none;
+    box-shadow: 0 0 0 0 rgb(255, 255, 255);
+    border: none;
+    background-color: #f5f5f5;
+}
+
+.borders {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.137);
+}
+.borders:hover {
+    box-shadow: 0 5px 10px rgba(16, 31, 165, 0.404);
+}
+
+/* btn para pagar */
+.procesar-pago {
+    background-color: var(--secondary-color);
+    color: var(--Third-color);
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.procesar-pago:hover {
+    background-color: var(--primary-color);
+    color: var(--Third-color);
+}
+
+/*============ Infor del producto (aparece al pasar el mouse) */
+/* titulo popup */
+.barra-centro {
+    background: var(--primary-color);
+}
+.popup-text {
+    color: var(--primary-color)
+}
+
+.product-card {
+    position: relative;
+    z-index: 1;
+}
+
+.product-card:hover {
+    z-index: 10;
+}
+
+/* scroll para mas productos */
+.scroll-altura {
+    height: calc(90vh - 150px); /* Altura dinámica basada en el viewport */
+    max-height: unset; /* Elimina la restricción fija */
+    overflow-y: auto; /* Mantiene el desplazamiento vertical */
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    background-color: var(--Third-color);
+}
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .scroll-altura {
+        height: calc(70vh - 120px); 
+        margin-bottom: 1rem; 
+    }
+}
+
+/*===================================scroll de productos */
+.scroll-altura::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.scroll-altura::-webkit-scrollbar-track {
+    background: rgba(24, 104, 184, 0.05);
+    border-radius: 4px;
+}
+
+/* Estiliza el "thumb" o la parte móvil/deslizable del scrollbar */
+.scroll-altura::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Define el aspecto del thumb del scrollbar al pasar el cursor sobre él */
+.scroll-altura::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/*=================================scorll total de ventas */
+.scroll-carrito::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.scroll-carrito::-webkit-scrollbar-track {
+    background: rgba(24, 104, 184, 0.05);
+    border-radius: 4px;
+}
+.scroll-carrito::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.scroll-carrito::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+
+/*================================= Estilos de popup de productos */
+.product-info-popup {
+    position: absolute;
+    top: 0;
+    left: 105%; 
+    width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 20;
+}
+
+.product-card:hover .product-info-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Para productos en el lado derecho para evitar que la ventana emergente salga de la pantalla */
+.col-lg-3:nth-child(4n) .product-info-popup,
+.col-lg-3:nth-child(4n-1) .product-info-popup {
+    left: auto;
+    right: 105%; 
+}
+
+/* Vista mobil */
+@media (max-width: 991px) {
+    .product-info-popup {
+        left: 0;
+        right: 0;
+        top: 100%; 
+        width: 100%;
+    }
+    
+    .col-lg-3:nth-child(4n) .product-info-popup,
+    .col-lg-3:nth-child(4n-1) .product-info-popup {
+        left: 0;
+        right: 0;
+    }
+}
+
+
+/*================================== Estilos de ventas no registrada */
+.modal-content {
+    border-radius: 1rem;
+}
+
+.modal-title {
+    color: var(--subtitulo-color);
+    font-weight: 600;
+}
+
+
+
+/* etiquetas flotantes */
+.form-flotando {
+    position: relative;
+}
+
+.form-flotando > .form-control {
+    padding: 1rem 0.75rem;
+    height: calc(2.8rem + 1px);
+    border-radius: 0.4rem;
+    border: 1px solid var(--secondary-color);
+}
+
+.form-flotando > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: .6rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+    color: var(--primary-color);
+}
+  
+.form-flotando > .form-control:focus ~ label,
+.form-flotando > .form-control:not(:placeholder-shown) ~ label {
+    transform: scale(.85) translateY(-50%) translateX(0.15rem);
+    font-size: 1rem;
+    background: var(--Third-color);
+    color: var(--primary-color);
+    padding: 0 .6rem;
+}
+  
+.form-flotando > .form-control:focus {
+    border: 1px solid var(--secondary-color);
+    box-shadow: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+
+/*================================== Estilos de Responsive */
+@media (min-width: 768px) {
+    .input-group-navbar .form-control:focus {
+        outline: none;
+        box-shadow: 0 0 0 0 rgb(255, 255, 255);
+        border: none;
+        background-color: #f5f5f5;
+    }
+
+    .input-group-navbar {
+        max-width: 320px;
+    }
+
+    .input-group-navbar .form-control {
+        color: #3e4455;
+        background-color: #f5f5f5;
+        height: calc(2.44375rem + 2px);  /* calc(2.44375rem + 2px) es el tamaño del input */
+    }
+
+    .input-group-navbar .btn {
+        color: #000;
+        background-color: #f5f5f5;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .input-group-navbar .btn:hover {
+        background-color: #f5f5f5;
+    }
+
+    .navbar-expand .navbar-nav .dropdown-menu {
+        box-shadow: 0.1rem .2rem rgba(0, 0, 0, 0.5);
+    }
+}

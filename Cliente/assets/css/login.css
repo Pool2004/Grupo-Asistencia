@@ -1,0 +1,371 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    font-family: 'Poppins', serif;
+    /* padding: 0;
+    margin: 0;  ESTAN EN EL NORMALIZE*/
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;  /* el viejo, no redondea 2rem = 32px */
+
+}
+
+:root {
+    --primary-color: #1868b8;
+    --primary-color-hover: #10305c;
+    --secondary-color: #292e33;
+    --Third-color: #ffffff;
+    --Fourth-color: #23ed23;
+    --background-color: #f2f2f2;
+    --text-color: #7a7575;
+}
+
+/*============================================== Para manejar rem por px  ==============================================*/
+html {
+    font-size: 62.5%; /* 1rem = 10px */
+}
+body {
+    font-size: 16px; /* 1rem = 16px */
+}
+
+/*============================================== Normalizar display  ====================================================*/
+body {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/*========================================== Contenido Seccion Acceso ===================================================*/
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    flex-direction: row-reverse;
+}
+
+.image-column {
+    flex: 1.5;
+    background-image: url('/assets/img/cliente-pos.svg');
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
+
+body.registro .image-column {
+    background-image: url('/assets/img/cliente-pos2.svg'); 
+    background-size: cover;
+    background-position: center;
+    display: none;
+    /*filter: brightness(0.8);  Reduce el brillo al 70% */
+
+}
+
+body.recuperar .image-column {
+    background-image: url('/assets/img/perfil-pos.svg'); 
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
+
+body.turno .image-column {
+    background-image: url('/assets/img/cliente-pos4.svg'); 
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
+
+
+/*=================================Se usa para poder usar iamgenes diferentes en cada html ===============================*/
+
+
+.login-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--Third-color);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    margin-bottom: 5rem;
+}
+
+.logo img {
+    width: 280px;
+    height: auto;
+    animation: levitacion cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s infinite;
+}
+@keyframes levitacion {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    /* max-width: 300px; */
+    margin-bottom: 1.5rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 1.2rem 1rem;
+    /* background: rgba(194, 51, 51, 0.05); */
+    border: 2px solid rgba(21, 85, 40, 0.295);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1.6rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-sizing: border-box; /* Asegúrate de incluir padding y borde en el ancho */
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.input-label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    background: var(--Third-color);
+    color: var(--text-color);
+    font-size: 1.6rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus + .input-label,
+.input-field:not(:placeholder-shown) + .input-label {
+    top: 0.2rem;
+    left: 1rem;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+span.forgot-password {
+    display: block; /* Convierte el span en un elemento de bloque */
+    color: var(--text-color); 
+    cursor: pointer;
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-align: right; /* Alinea el texto hacia la derecha */
+}
+a {
+    text-decoration: none;
+}
+span.forgot-password:hover {
+    color: var(--primary-color-hover);
+    text-decoration: underline;
+}
+
+
+.signup-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 400;
+}
+
+.signup-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-left: 5px;
+}
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1.2rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--Third-color);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.data-protection {
+    margin-bottom: 1rem;
+    color: #292e33;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+
+/*==================================== Contenido Seccion Recuperar  ===================================================*/
+.logo-recuperar img {
+    width: 280px;
+    height: auto;
+    margin-bottom: 10rem;
+}
+
+span.text-recuperar {
+    margin-top: 2rem;
+    display: block;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+p.parrafo-recuperar {
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+
+/*==================================== Contenido Seccion Registro ===================================================*/
+.logo-cuenta img {
+    width: 70px;
+    height: auto;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .logo-cuenta img {
+        display: block; /* Mostrar solo en pantallas menores a 768px */
+    }
+}
+
+.logo-cuenta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.color {
+    color: var(--text-color);
+}
+
+.register-url {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 400;
+    text-align: center;
+}
+
+.input-checkbox {
+    width: 15px; 
+    height: 15px;
+    cursor: pointer;
+    border: 2px solid var(--text-colors);
+    border-radius: 4px; 
+    transition: all 0.3s ease; 
+}
+
+.input-checkbox:checked {
+    background-color: #23ed23; 
+    border-color: #23ed23;
+    transform: scale(1.2); 
+}
+
+span.p-terminos {
+    font-size: 1.5rem;
+}
+
+a.terminos {
+    color: var(--primary-color)
+}
+a.terminos:hover {
+    text-decoration: underline;
+}
+
+.inicio-register {
+    color: var(--primary-color);
+}
+
+.inicio-register:hover {
+    text-decoration: underline;
+}
+
+
+/*==================================== Contenido Seccion Turno ===================================================*/
+.nombre-turno {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.logo-turno img {
+    width: 170px;
+    height: auto;
+    margin-top: 3rem;
+}
+/*========================================== Responsive Design =========================================================*/
+@media (min-width: 768px) {
+    .image-column {
+        display: block;   /* para que se vea la imagen en pantallas grandes */
+    }
+
+    body.registro .image-column {
+        display: block;  
+    }
+
+
+    body.recuperar .image-column {
+        display: block;   
+    }
+
+    body.turno .image-column {
+        display: block;   
+    }
+
+
+}
