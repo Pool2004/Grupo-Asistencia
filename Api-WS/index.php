@@ -1,42 +1,54 @@
-<?php 
-// Importamos el controllador con la lógica de negocio para los planes.
+<?php
+/**
+ * index.php
+ * 
+ * Punto de entrada para la API de planes de seguro (API Aseguradora Ficticia).
+ * Encargado de enrutar las solicitudes HTTP hacia los métodos correctos del controlador.
+ * 
+ * Métodos soportados:
+ * - POST: /cotizar, /crear
+ * - PUT: /actualizar
+ * - DELETE: /eliminar
+ * 
+ * Autor: Dev Jean Paul Ordoñez
+ * Fecha: 10/05/2025
+ */
+
 require_once '../Api-WS/controllers/PlanController.php';
 
-    // Endpoint para obtener los planes
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/planes') !== false) {
+// Obtener el método y la ruta solicitada
+$method = $_SERVER['REQUEST_METHOD'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        // Instanciamos el controlador con el método para obtener los planes
+// Instanciar el controlador principal
+$controller = new PlanController();
 
-        $controller = new PlanController();
+// Definir las rutas válidas por método HTTP
+$routes = [
+    'POST' => [
+        '/cotizar'  => 'obtenerPlanes',
+        '/crear'    => 'crearPlan'
+    ],
+    'PUT' => [
+        '/actualizar' => 'actualizarPlan'
+    ],
+    'DELETE' => [
+        '/eliminar' => 'eliminarPlan'
+    ]
+];
 
-        $controller->obtenerPlanes();
-    } 
-
-    // Endpoint para crear un nuevo plan
-
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['REQUEST_URI'], '/crear') !== false) {
-        
-        // Instanciamos el controlador con el método para obtener los planes
-        $controller = new PlanController();
-
-        $controller->crearPlan();
+// Buscar si la ruta y el método son válidos
+if (isset($routes[$method])) {
+    foreach ($routes[$method] as $route => $action) {
+        if (strpos($uri, $route) !== false) {
+            // Ejecutar el método correspondiente del controlador
+            $controller->$action();
+            exit;
+        }
     }
+}
 
-    if($_SERVER['REQUEST_METHOD'] === 'DELETE' && strpos($_SERVER['REQUEST_URI'], '/eliminar') !== false) {
-        
-        // Instanciamos el controlador con el método para obtener los planes
-        $controller = new PlanController();
-
-        $controller->eliminarPlan();
-    }
-
-    if($_SERVER['REQUEST_METHOD'] === 'PUT' && strpos($_SERVER['REQUEST_URI'], '/actualizar') !== false) {
-        
-        // Instanciamos el controlador con el método para obtener los planes
-        $controller = new PlanController();
-
-        $controller->actualizarPlan();
-    }
-
-
-?>
+// Si no se encuentra una ruta válida, retornar error 404
+http_response_code(404);
+header('Content-Type: application/json');
+echo json_encode(['error' => 'Endpoint no encontrado']);

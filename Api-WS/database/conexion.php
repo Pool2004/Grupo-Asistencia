@@ -1,13 +1,48 @@
 <?php
+
+/**
+ * Clase BaseDatos
+ * 
+ * Encargada de manejar la conexión a la base de datos y operaciones CRUD básicas.
+ */
+
 class BaseDatos {
- 
+    
+    /**
+     * @var string Servidor de la base de datos
+     */
     private $host = "localhost";
+
+    /**
+     * @var string Usuario de la base de datos
+     */
     private $user = "root";
+
+    /**
+     * @var string Nombre de la base de datos
+     */
     private $base = "aseguradora";
+
+    /**
+     * @var string Puerto de la base de datos
+     */
     private $port = "";
+
+    /**
+     * @var string Contraseña de la base de datos
+     */
     private $pass = "";
 
-    public $pdo; // Cambiar a public para permitir el acceso desde fuera de la clase
+
+    /**
+     * @var PDO Instancia de la conexión PDO
+     */
+    public $pdo; 
+
+
+    /**
+     * Constructor: establece la conexión a la base de datos.
+     */
 
     public function __construct() {
         try {
@@ -19,7 +54,15 @@ class BaseDatos {
         }
     }
 
-    // Método para crear un registro y devolver el ID del último registro insertado
+
+    /**
+     * Inserta un nuevo registro en la tabla especificada.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $data Datos a insertar (clave => valor).
+     * @return bool true si se insertó correctamente, false si falló.
+     */
+
     public function create($table, $data) {
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $columns = implode(", ", array_keys($data));
@@ -27,42 +70,55 @@ class BaseDatos {
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute($data)) {
-            return true; // Devolver true si todo OK
+            return true; 
         } else {
-            return false; // Si fallo da false
+            return false; 
         }
     }
 
-    // Método para leer un registro
+
+
+    /**
+     * Lee registros de una tabla, con soporte opcional para JOINs y condiciones WHERE.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $joins Arreglo con las instrucciones JOIN (formato SQL).
+     * @param string $where Condición WHERE (opcional).
+     * @param string $fields Campos a seleccionar (por defecto '*').
+     * @return array Arreglo de resultados (asociativos).
+     */
     public function read($table, $joins = [], $where = '', $fields = '*') {
-        // Construir la parte SELECT
+ 
         $sql = "SELECT $fields FROM $table";
     
-        // Añadir los JOINs
         if (!empty($joins)) {
             foreach ($joins as $join) {
                 $sql .= " INNER JOIN " . $join;
             }
         }
     
-        // Añadir la condición WHERE si existe
         if (!empty($where)) {
             $sql .= " WHERE " . $where;
         }
-    
-        // Preparar y ejecutar la consulta
+  
         $stmt = $this->pdo->prepare($sql);
 
     
         $stmt->execute();
     
-        // Obtener los resultados
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     
 
-    // Método para actualizar un registro
+    /**
+     * Actualiza un registro en una tabla.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $data Datos a actualizar.
+     * @param array $where Condición de filtrado (clave => valor).
+     * @return bool true si se actualizó correctamente, false si falló.
+     */
     public function update($table, $data, $where) {
         $setParts = [];
         foreach ($data as $column => $value) {
@@ -83,7 +139,15 @@ class BaseDatos {
         return $stmt->execute($data);
     }
 
-    // Método para borrar un registro
+    
+
+    /**
+     * Elimina registros de una tabla según una condición.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $where Condición de filtrado (clave => valor).
+     * @return bool true si se eliminó correctamente, false si falló.
+     */
     public function delete($table, $where) {
         $conditions = [];
         foreach ($where as $column => $value) {

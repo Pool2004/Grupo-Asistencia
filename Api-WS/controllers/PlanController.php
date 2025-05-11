@@ -1,8 +1,33 @@
 <?php 
+
+/**
+ * PlanController.php
+ * 
+ * Controlador encargado de manejar las operaciones relacionadas con los planes de seguros:
+ * - Obtener cotizaciones
+ * - Crear, actualizar y eliminar planes
+ * 
+ * Este controlador se comunica con el modelo PlanModel y responde en formato JSON.
+ * 
+ * Autor: Dev Jean Paul Ordoñez
+ * Fecha: 10/05/2025
+ */
+
+
 // Importamos la clase de los planes
 require_once __DIR__ . '/../models/PlanModel.php';
 
 class PlanController {
+
+
+    /** Info funcion obtenerPlanes
+     * 
+     * Función: Obtiene los planes disponibles para cotización.
+     * 
+     * Valida la entrada del cliente y devuelve 3 ofertas simuladas con ID único.
+     *
+     * @return void 
+     */
 
     public function obtenerPlanes(){
         header('Content-Type: application/json');
@@ -38,6 +63,18 @@ class PlanController {
         http_response_code(200);
         echo json_encode(['message' => 'Planes obtenidos correctamente', 'planes' => $ofertas, 'status' => 200]);
     }
+
+
+    /** 
+     * Info función crearPlan
+     * 
+     * Función: Crea un nuevo plan de seguros si no existe previamente.
+     * 
+     * Valida que el nombre y precio estén presentes y sean correctos.
+     * Verifica duplicados por nombre antes de insertar.
+     *
+     * @return void 
+     */
 
     public function crearPlan(){
         header('Content-Type: application/json');
@@ -90,6 +127,18 @@ class PlanController {
         echo json_encode(['message' => 'Plan creado correctamente', 'status' => 201]);
     }
 
+
+
+
+    /** 
+     * Info función eliminarPlan
+     * 
+     * Función: Elimina un plan de seguros existente por ID.
+     * 
+     * Valida que el ID exista en la base de datos antes de eliminar.
+     *
+     * @return void 
+     */
     public function eliminarPlan(){
         header('Content-Type: application/json');
 
@@ -124,6 +173,18 @@ class PlanController {
         echo json_encode(['error' => 'El plan no existe.', 'status' => 404]);
     }
 
+
+    /** 
+     * Info función actualizarPlan
+     * 
+     * Función: Actualiza los datos de un plan de seguros existente.
+     * 
+     * Valida que el ID, nombre y precio sean válidos.
+     * Verifica la existencia del plan antes de actualizarlo.
+     *
+     * @return void 
+     */
+    
     public function actualizarPlan(){
         header('Content-Type: application/json');
 
