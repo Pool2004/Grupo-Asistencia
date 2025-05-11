@@ -1,8 +1,8 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require '../../config/vendor/autoload.php'; // Cargamos la librería de PHPMailer
-include_once '../conexion.php'; // Llamamos al archivo con la clase pdo para el manejo con la base de datos.
+require_once '../config/vendor/autoload.php'; // Cargamos la librería de PHPMailer
+include_once '../components/conexion.php'; // Llamamos al archivo con la clase pdo para el manejo con la base de datos.
 header('Content-Type: application/json');
 
 try{
@@ -10,25 +10,27 @@ try{
 
     $database = new BaseDatos(); // Instancia de la clase BaseDatos
     
-    $email = $_POST['email'] ?? '';
+    $correo = $_POST['correo'] ?? '';
     
-    if ($email == '') {
+    if ($correo == '') {
+        http_response_code(400); // Bad Request
         echo json_encode(['status' => 'error', 'message' => 'El correo no puede estar vacío.']);
         die();
     }
 
     // Verificamos si el existe el correo en la base de datos
 
-    $user = $database->read('users', [], "email = '$email'");
+    $user = $database->read('usuarios', [], "correo = '$correo'");
 
     if (count($user) === 0) {
+        http_response_code(403); // No autorizado
         echo json_encode(['status' => 'error', 'message' => 'El correo electrónico no está registrado']);
         die();
     }
 
     // Configuramos el envio de correo
     
-    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+    if(filter_var($correo, FILTER_VALIDATE_EMAIL)){
         
         $mail = new PHPMailer(true); // Configuramos el objeto PHPMailer que gestionará el envio de correo
 
@@ -38,8 +40,8 @@ try{
             $mail->isSMTP(); // Usamos SMTP
             $mail->Host = 'smtp.gmail.com'; // Servidor de correo saliente
             $mail->SMTPAuth = true; // Habilitamos la autenticación SMTP
-            $mail->Username = 'neologic.sas@gmail.com'; // Correo de Gmaill
-            $mail->Password = "bwqm nnug kowi ribp"; // Contraseña de Gmail
+            $mail->Username = 'jeandeveloper04@gmail.com'; // Correo de Gmaill
+            $mail->Password = "nmwe kdef zysw jcwi"; // Contraseña de Gmail
             $mail->SMTPSecure = 'tls'; // Habilitamos el cifrado TLS
             $mail->Port = 587; // Puerto TCP para conectarse al servidor SMTP
             $mail->CharSet = 'UTF-8'; // Establece UTF-8 como codificación de caracteres
@@ -47,8 +49,8 @@ try{
 
             // Configuramos el correo
 
-            $mail->setFrom('no-reply@neologic.com.co', 'NeoLogic S.A.S.'); // Remitente
-            $mail->addAddress($email); // Destinatario
+            $mail->setFrom('no-reply@neologic.com.co', 'Grupo Asistencia'); // Remitente
+            $mail->addAddress($correo); // Destinatario
             $mail->isHTML(true); // Habilitamos el formato HTML
             $mail->Subject = 'Recuperación de Contraseña'; // Asunto
 
@@ -76,7 +78,7 @@ try{
                 }
                 .header {
                   text-align: center;
-                  background: #368d5b; /* Morado principal */
+                  background:rgb(0, 174, 255); /* Morado principal */
                   color: #ffffff;
                   padding: 15px;
                   border-radius: 8px 8px 0 0;
@@ -94,14 +96,16 @@ try{
                   display: inline-block;
                   padding: 12px 20px;
                   margin-top: 20px;
-                  background:#368d5b; /* Morado principal */
+                  background:rgb(56, 232, 255); /* Morado principal */
                   color: #ffffff;
                   text-decoration: none;
                   border-radius: 5px;
                   font-weight: bold;
                 }
                 .button:hover {
-                  background:#368d5b; /* Morado más oscuro */
+                  background:rgb(17, 206, 231); /* Morado más oscuro */
+                  color: black;
+                  transition: background 0.3s, color 0.3s;
                 }
                 .footer {
                   text-align: center;
@@ -113,7 +117,7 @@ try{
                   margin: 0;
                 }
                 .footer .neologic {
-                  color:#368d5b; /* Morado para resaltar Neologic */
+                  color:rgb(0, 174, 255); /* Morado para resaltar Neologic */
                   font-weight: bold;
                 }
               </style>
@@ -127,13 +131,13 @@ try{
                 <div class='content'>
                     
                   <p>Hola,</p>
-                  <p>Recibimos una solicitud para restablecer tu contraseña en nuestro sistema <b>HV Tecno-Lujo</b></b>
+                  <p>Recibimos una solicitud para restablecer tu contraseña en el sistema <b>Grupo Asistencia</b></b>
                   <p>Haz clic en el botón de abajo para establecer una nueva contraseña:</p>
-                  <a href='https://hvtecnolujo.com/nueva__contrasena.html?email=" . urlencode($email) . "' class='button'>Restablecer Contraseña</a>
+                  <a href='http://localhost/Entrevista/Cliente/views/new_password.html?correo=" . urlencode($correo) . "' class='button'>Restablecer Contraseña</a>
                   <p>Si no solicitaste este cambio, ignora este mensaje.</p>
                 </div>
                 <div class='footer'>
-                  <p>© 2025 <span class='neologic'>Neologic de ❤️</span>. Todos los derechos reservados.</p>
+                  <p>© 2025 <span class='neologic'>Grupo Asistencia de ❤️</span>. Todos los derechos reservados.</p>
                 </div>
               </div>
             </body>
@@ -143,22 +147,28 @@ try{
 
             // Enviar el correo
             if($mail->send()){
+                http_response_code(200); // OK
                 echo json_encode(['status' => 'ok', 'message' => 'Se ha enviado el correo con éxito.']);
             }else{
+                http_response_code(500); // Error interno en el servidor
                 echo json_encode(['status' => 'error', 'message' => 'Error al enviar el correo de verificación: '.$mail->ErrorInfo]);
             }
             
             
             
         }catch(Exception $error){
+            http_response_code(500); // Error interno en el servidor
             echo json_encode(['status' => 'error', 'message' => 'Error al enviar el correo de verificación: '.$mail->ErrorInfo]);
         }
         
     }else{
+        http_response_code(400); // Bad Request
+        // Si el correo no es válido, devolver un error
        echo json_encode(['status' => 'error', 'message' => 'El correo contiene caracteres no permitidos.']); 
     }
     
 }catch(PDOException $e){
+    // Si hay un error en la conexión, devolver error
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }
 

@@ -6,6 +6,20 @@ $(document).ready(function() {
         var email = $('#userEmail').val();
         var password = $('#password').val();
 
+        // Validar campos vacíos
+
+        if(email === '' || password === '') {
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor, completa todos los campos.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
+
+
+
         // Enviar los datos con AJAX
         $.ajax({
             url: './Cliente/src/login/login.php', // Ruta a tu archivo PHP
@@ -25,7 +39,7 @@ $(document).ready(function() {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirigir a la página principal
-                            window.location.href = './Cliente/views/dashboard.html'; // Cambia esto a la URL de tu página principal
+                            window.location.href = './Cliente/views/dashboard.php'; // Cambia esto a la URL de tu página principal
                         }
                     });
                 } else {

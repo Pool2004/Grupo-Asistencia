@@ -1,6 +1,18 @@
 $(document).ready(function() {
-    $('#registerButton').click(function(e) {
+
+    // Recoger loader
+    var loader = $('.loader-container');
+    var loaderBack = $('.loader-background');
+
+    // Variable bandera
+    var bandera = false;
+
+    $('#sendButton').click(function(e) {
         e.preventDefault(); // Prevenir el envío tradicional del formulario
+
+        loader.show(); // Mostrar el loader
+        loaderBack.show(); // Mostrar el fondo del loader
+        bandera = true; // Cambiar la bandera a true
 
         // Recoger los datos del formulario
         var correo = $('#userEmail').val();
@@ -21,7 +33,12 @@ $(document).ready(function() {
                         text: 'El correo de recuperación ha sido enviado exitosamente, revisa tu bandeja de entrada',
                         icon: 'info',
                         confirmButtonText: 'Ok'
-                    })
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirigir a la página principal
+                            window.location.href = '../../index.html'; // Cambia esto a la URL de tu página principal
+                        }
+                    });
                 } else {
                     // Error al procesar el login
                     Swal.fire({
@@ -41,6 +58,14 @@ $(document).ready(function() {
                         icon: 'error',
                         confirmButtonText: 'Ok'
                     })
+            },
+            complete: function() {
+                // Ocultar el loader después de la respuesta
+                if (bandera) {
+                    loader.hide(); // Ocultar el loader
+                    loaderBack.hide(); // Mostrar el fondo del loader
+                    bandera = false; // Cambiar la bandera a false
+                }
             }
         });
     });
