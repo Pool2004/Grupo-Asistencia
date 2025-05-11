@@ -1,9 +1,15 @@
 <?php
 
 /**
- * Clase BaseDatos
+ * Conexion.php
  * 
- * Encargada de manejar la conexión a la base de datos y operaciones CRUD básicas.
+ * Clase para la conexión a la base de datos MySQL utilizando PDO.
+ * - Crear, actualizar y eliminar registros en la base de datos.
+ * 
+ * Esta clase se utiliza para interactuar con la base de datos de la aseguradora.
+ * 
+ * Autor: Dev Jean Paul Ordoñez
+ * Fecha: 10/05/2025
  */
 
 class BaseDatos {

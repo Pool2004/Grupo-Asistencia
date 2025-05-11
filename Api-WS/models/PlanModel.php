@@ -1,4 +1,19 @@
 <?php
+
+/**
+ * PlanModel.php
+ * 
+ * Clase encargada de manejar la lógica de negocio relacionada con los planes de seguros.
+ * - Obtener todos los planes
+ * - Crear, actualizar y eliminar planes
+ * 
+ * Esta clase se comunica con la base de datos a través de la clase BaseDatos.
+ * 
+ * Autor: Dev Jean Paul Ordoñez
+ * Fecha: 10/05/2025
+ */
+
+
 require_once __DIR__ . '/../database/conexion.php';  // Importamos la clase de conexión a la base de datos
 
 class PlanModel {

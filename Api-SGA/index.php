@@ -1,0 +1,60 @@
+<?php
+/**
+ * index.php
+ * 
+ * Punto de entrada para la API de planes de seguro (API Intermedia entre cliente y API externa).
+ * Encargado de enrutar las solicitudes HTTP hacia los endpoints correspondientes en la API externa.
+ * 
+ * Métodos soportados:
+ * - POST: /cotizar, /crear
+ * - PUT: /actualizar
+ * - DELETE: /eliminar
+ * 
+ * Autor: Dev Jean Paul Ordoñez
+ * Fecha: 10/05/2025
+ */
+
+
+
+
+// Importar el controlador principal
+// Este controlador se encarga de manejar las solicitudes y respuestas de la API
+require_once 'controllers/CotizadorSGAController.php';
+
+
+// Obtener el método y la ruta solicitada
+$method = $_SERVER['REQUEST_METHOD'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Instanciar el controlador principal
+$controller = new CotizadorSGAController();
+
+// Definir las rutas válidas por método HTTP
+$routes = [
+    'POST' => [
+        '/cotizar'  => 'cotizar',
+        '/crear'    => 'crearPlan'
+    ],
+    'PUT' => [
+        '/actualizar' => 'actualizarPlan'
+    ],
+    'DELETE' => [
+        '/eliminar' => 'eliminarPlan'
+    ]
+];
+
+// Buscar si la ruta y el método son válidos
+if (isset($routes[$method])) {
+    foreach ($routes[$method] as $route => $action) {
+        if (strpos($uri, $route) !== false) {
+            // Ejecutar el método correspondiente del controlador
+            $controller->$action();
+            exit;
+        }
+    }
+}
+
+// Si no se encuentra una ruta válida, retornar error 404
+http_response_code(404);
+header('Content-Type: application/json');
+echo json_encode(['error' => 'Endpoint no encontrado']);
