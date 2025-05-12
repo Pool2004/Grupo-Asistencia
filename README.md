@@ -249,7 +249,8 @@ Antes de comenzar asegúrate de tener instalado:
 
      EJEMPLO DEL BODY DEL JSON A ENVIAR
 
-     ![image](https://github.com/user-attachments/assets/dd3083d7-d413-48d9-abc4-fea1278969c8)
+     ![image](https://github.com/user-attachments/assets/c3468fe0-a2a6-4303-9980-8c7ce3bb403f)
+
 
 
      EJEMPLO SOLICITUD RESPUESTA
