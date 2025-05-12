@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'apellidos' => $apellidos,
         'telefono' => $telefono,
         'correo' => $email,
-        'contrasena' => hash('sha256', $password), // Hasheamos la contraseña
+        'contrasena' => password_hash($password, PASSWORD_DEFAULT), // Hasheamos la contraseña
         'rol' => 'agente'
     ];
 
