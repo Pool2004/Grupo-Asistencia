@@ -229,6 +229,106 @@ Antes de comenzar asegúrate de tener instalado:
 
      Donde podra establecer su nueva contraseña.
 
+
+
+     ---
+
+
+     Endpoints
+
+     **API WS**
+
+     METHOD: GET -> ENDPOINT: http://localhost/Entrevista/Api-WS/index.php/planes
+
+     EJEMPLO SOLICITUD RESPUESTA
+
+     ![image](https://github.com/user-attachments/assets/cac86a95-30eb-4dde-b34b-c8d9ad24ffe9)
+
+
+    METHOD: POST -> ENDPOINT: http://localhost/Entrevista/Api-SGA/index.php/crear
+
+     EJEMPLO DEL BODY DEL JSON A ENVIAR
+
+     ![image](https://github.com/user-attachments/assets/dd3083d7-d413-48d9-abc4-fea1278969c8)
+
+
+     EJEMPLO SOLICITUD RESPUESTA
+
+     ![image](https://github.com/user-attachments/assets/a89294fa-8c01-4809-8516-26effaea9b67)
+
+
+
+
+     METHOD: DELETE -> ENDPOINT: http://localhost/Entrevista/Api-WS/index.php/eliminar
+
+     EJEMPLO DEL BODY DEL JSON A ENVIAR
+
+     ![image](https://github.com/user-attachments/assets/aa79fef0-02c8-408a-aae0-3999bc54558a)
+
+
+
+
+     EJEMPLO SOLICITUD RESPUESTA
+
+     ![image](https://github.com/user-attachments/assets/fb68f8d8-1749-4e86-acad-9fec7cf1d05d)
+
+
+     METHOD: PUT -> ENDPOINT: http://localhost/Entrevista/Api-WS/index.php/actualizar
+
+     ![image](https://github.com/user-attachments/assets/2c6c4d00-4013-4700-8874-08d0cd9ca3ec)
+
+
+
+     METHOD: GET -> ENDPOINT: http://localhost/Entrevista/Api-WS/index.php/planes
+
+     ![image](https://github.com/user-attachments/assets/0d61627e-a1c6-4407-a5c7-20660f5206a9)
+
+
+
+     **API SGA**
+
+     METHOD: POST -> ENDPOINT: http://localhost/Entrevista/Api-SGA/index.php/crear
+
+     EJEMPLO DEL BODY DEL JSON A ENVIAR
+
+     ![image](https://github.com/user-attachments/assets/dd3083d7-d413-48d9-abc4-fea1278969c8)
+
+
+     EJEMPLO SOLICITUD RESPUESTA
+
+     ![image](https://github.com/user-attachments/assets/a89294fa-8c01-4809-8516-26effaea9b67)
+
+
+
+
+     METHOD: DELETE -> ENDPOINT: http://localhost/Entrevista/Api-SGA/index.php/eliminar
+
+     EJEMPLO DEL BODY DEL JSON A ENVIAR
+
+     ![image](https://github.com/user-attachments/assets/ed73913d-49f2-467b-b797-f245df90e921)
+
+
+
+     EJEMPLO SOLICITUD RESPUESTA
+
+     ![image](https://github.com/user-attachments/assets/b5a2a85c-7124-4270-b254-4483757bd6e9)
+
+     METHOD: PUT -> ENDPOINT: http://localhost/Entrevista/Api-SGA/index.php/actualizar
+
+     ![image](https://github.com/user-attachments/assets/53ed28c5-697d-4e84-9eeb-a5e12cbedbef)
+
+
+     METHOD: GET -> ENDPOINT: http://localhost/Entrevista/Api-SGA/index.php/planes
+
+     ![image](https://github.com/user-attachments/assets/a0b3a38b-8c82-41f8-90f1-83e507b151ec)
+
+
+
+
+
+     
+
+
      
 
 
