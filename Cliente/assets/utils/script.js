@@ -1,39 +1,59 @@
-//========================== Manejo sidebar
-const hamburguesa  = document.querySelector(".toggle-btn");
-const toggler = document.querySelector("#icon");
+$(document).ready(function () {
 
-hamburguesa.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("expand")
-    toggler.classList.toggle("bxs-chevrons-right");
-    toggler.classList.toggle("bxs-chevrons-left");
-});
+    // ========================== Manejo sidebar
+    $(".toggle-btn").on("click", function () {
+        $("#sidebar").toggleClass("expand");
+        $("#icon").toggleClass("bxs-chevrons-right bxs-chevrons-left");
+    });
 
+    // ========================== Carga dinámica de contenido
+    $(".sidebar-link[data-page]").on("click", function (e) {
+        e.preventDefault();
 
-//========================== Graficas chart.js
-document.addEventListener('DOMContentLoaded', function() {
-  new Chart(document.getElementById("bar-chart-horizontal"), {
-    type: 'bar', // Cambio de 'horizontalBar' a 'bar'
-    data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
+        const page = $(this).data("page");
+
+        // Cerrar menú colapsado si aplica (Bootstrap)
+        const parentCollapse = $(this).closest(".collapse.show");
+        if (parentCollapse.length) {
+            parentCollapse.collapse('hide');
         }
-      ]
-    },
-    options: {
-      indexAxis: 'y', // Esta es la clave para hacerlo horizontal en Chart.js v3+
-      plugins: {      // Nueva estructura de options en Chart.js v3+
-        legend: { 
-          display: false 
-        },
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
-      }
+
+        // Cargar el contenido dinámicamente
+        $.get(`../views/${page}.html`)
+            .done(function (html) {
+                $("main.content").html(html);
+            })
+            .fail(function () {
+                Swal.fire('Error', 'No se pudo cargar la vista.', 'error');
+            });
+    });
+
+    // ========================== Gráfica con Chart.js
+    const ctx = document.getElementById("bar-chart-horizontal");
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    data: [2478, 5267, 734, 784, 433]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Predicted world population (millions) in 2050'
+                    }
+                }
+            }
+        });
     }
-  });
+
 });

@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h3 class="mb-4">Planes Seguro de Vehículo</h3>
+
+    <hr class="my-4">
+
+    <h5>Planes Activos</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover mt-3" id="tablaOfertas" style="display: none;">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre del Plan</th>
+                    <th>Valor</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="bodyOfertas"></tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalActualizarPlan" tabindex="-1" aria-labelledby="modalActualizarLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formActualizarPlan">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalActualizarLabel">Actualizar Plan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+    
+                        <!-- ID oculto (necesario para saber cuál actualizar) -->
+                        <input type="hidden" id="planId">
+    
+                        <div class="mb-3">
+                            <label for="nombrePlan" class="form-label">Nombre del Plan</label>
+                            <input type="text" class="form-control" id="nombrePlan" required minlength="5">
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="precioPlan" class="form-label">Precio</label>
+                            <input type="number" class="form-control" id="precioPlan" min="1" step="0.01" required>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../Cliente/assets/utils/planes/list_plan/planes.js" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

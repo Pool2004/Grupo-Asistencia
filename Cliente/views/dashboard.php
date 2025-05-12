@@ -33,6 +33,12 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
     <!-- Icono -->
     <link rel="icon" type="png" href="../public/images/icon-page.ico">
+
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
 </head>
 <body>
@@ -59,7 +65,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                 <!-- Nueva venta / acceso rapido -->
                 <li class="sidebar-item">
-                    <a href="dashboard2.html" class="sidebar-link plus">
+                    <a href="#" class="sidebar-link plus" data-page="cotizar">
                         <i class='bx bxs-plus-circle'></i>
                         <span>Asegurar Ahora</span>
                     </a>
@@ -68,7 +74,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                 <!-- Home -->
                 <li class="sidebar-item ">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link" data-page="dashboard">
                         <i class='bx bxs-home-heart'></i>
                         <span>Home</span>
                     </a>
@@ -83,12 +89,12 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="#" class="sidebar-link" data-page="cotizar">
                                 Asegurar 
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="#" class="sidebar-link" data-page="historial">
                                 Historial
                             </a>
                         </li>
@@ -98,20 +104,20 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
                 <!-- Clientes -->
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class='bx bxs-group'></i>
-                        <span>Clientes</span>
+                        <i class='bx bx-user-pin' ></i>
+                        <span>Planes</span>
                     </a>
 
                     <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                Contactos
+                            <a href="#" class="sidebar-link" data-page="new_plan">
+                                Añadir Plan
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                Historial Aseguradas
+                            <a href="#" class="sidebar-link" data-page="planes">
+                                Planes Activos
                             </a>
                         </li>
                     </ul>

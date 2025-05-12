@@ -1,0 +1,25 @@
+<div class="container mt-4">
+    <h3 class="mb-4">Nuevo Plan Seguro de Vehículo</h3>
+
+    <form id="formCotizar">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre Plan</label>
+                <input type="text" id="nombre" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="apellidos" class="form-label">Precio Plan</label>
+                <input type="number" id="precio" class="form-control" required min="0">
+            </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Agregar Plan</button>
+    </form>
+
+    
+</div>
+
+<script src="../assets/utils/planes/nuevo_plan/planes.js" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
