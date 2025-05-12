@@ -1,3 +1,31 @@
+/**
+ * Script de cotización de seguros
+ *
+ * Este script se ejecuta cuando el usuario envía el formulario de cotización.
+ * Recoge los datos del formulario, valida el formato de la placa, y realiza
+ * una solicitud AJAX a la API SGA (`/cotizar`) para obtener las ofertas disponibles.
+ *
+ * Funciones principales:
+ * - Validación del formato de placa (ABC123)
+ * - Envío de solicitud POST con JSON al endpoint cotizador
+ * - Renderizado dinámico de resultados en tabla
+ * - Manejo de respuestas exitosas o con error mediante SweetAlert
+ *
+ * Elementos involucrados:
+ * - #formCotizar: formulario HTML
+ * - #tablaOfertas: tabla de resultados (se muestra si hay datos)
+ * - #bodyOfertas: tbody donde se insertan las filas de las ofertas
+ *
+ * Librerías utilizadas:
+ * - jQuery
+ * - SweetAlert2
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
 $(document).ready(function () {
     $('#formCotizar').on('submit', function (e) {
         e.preventDefault();

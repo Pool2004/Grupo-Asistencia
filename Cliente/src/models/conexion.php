@@ -1,13 +1,58 @@
 <?php
+/**
+ * Clase BaseDatos
+ *
+ * Esta clase encapsula la conexión a una base de datos MySQL mediante PDO,
+ * y proporciona métodos genéricos para operaciones CRUD (crear, leer, actualizar y eliminar).
+ * Es utilizada como capa de abstracción dentro del modelo en arquitecturas tipo MVC o desacopladas.
+ *
+ * Métodos:
+ * - __construct(): Conecta automáticamente a la base de datos al instanciar la clase.
+ * - create($table, $data): Inserta un nuevo registro en la tabla especificada.
+ * - read($table, $joins = [], $where = '', $fields = '*'): Consulta registros con soporte para JOINs y condiciones WHERE.
+ * - update($table, $data, $where): Actualiza registros que cumplan una o más condiciones.
+ * - delete($table, $where): Elimina registros basados en una o varias condiciones.
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
 class BaseDatos {
  
+    /**
+     * @var string Servidor de la base de datos
+     */
     private $host = "localhost";
+
+    /**
+     * @var string Usuario de la base de datos
+     */
     private $user = "root";
+
+    /**
+     * @var string Nombre de la base de datos
+     */
     private $base = "aseguradora";
+
+    /**
+     * @var string Puerto de la base de datos
+     */
     private $port = "";
+
+    /**
+     * @var string Contraseña de la base de datos
+     */
     private $pass = "";
 
-    public $pdo; // Cambiar a public para permitir el acceso desde fuera de la clase
+    /**
+     * @var PDO Instancia de la conexión PDO
+     */
+
+    public $pdo; 
+
+    /**
+     * Constructor: establece la conexión a la base de datos.
+     */
 
     public function __construct() {
         try {
@@ -19,7 +64,14 @@ class BaseDatos {
         }
     }
 
-    // Método para crear un registro y devolver el ID del último registro insertado
+
+    /**
+     * Inserta un nuevo registro en la tabla especificada.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $data Datos a insertar (clave => valor).
+     * @return bool true si la inserción fue exitosa, false en caso contrario.
+     */
     public function create($table, $data) {
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $columns = implode(", ", array_keys($data));
@@ -33,7 +85,15 @@ class BaseDatos {
         }
     }
 
-    // Método para leer un registro
+    /**
+     * Consulta registros de una tabla con soporte para JOINs y condiciones WHERE.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $joins Array de JOINs (ej. ['tabla2 ON tabla1.id = tabla2.id']).
+     * @param string $where Condición WHERE (ej. 'id = 1').
+     * @param string $fields Campos a seleccionar (ej. 'id, nombre').
+     * @return array Resultados de la consulta.
+     */
     public function read($table, $joins = [], $where = '', $fields = '*') {
         // Construir la parte SELECT
         $sql = "SELECT $fields FROM $table";
@@ -61,8 +121,14 @@ class BaseDatos {
     }
     
     
-
-    // Método para actualizar un registro
+    /**
+     * Actualiza registros en la tabla especificada.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $data Datos a actualizar (clave => valor).
+     * @param array $where Condiciones para la actualización (clave => valor).
+     * @return bool true si la actualización fue exitosa, false en caso contrario.
+     */
     public function update($table, $data, $where) {
         $setParts = [];
         foreach ($data as $column => $value) {
@@ -83,7 +149,15 @@ class BaseDatos {
         return $stmt->execute($data);
     }
 
-    // Método para borrar un registro
+    
+
+    /**
+     * Elimina registros de una tabla según una condición.
+     *
+     * @param string $table Nombre de la tabla.
+     * @param array $where Condición de filtrado (clave => valor).
+     * @return bool true si se eliminó correctamente, false si falló.
+     */
     public function delete($table, $where) {
         $conditions = [];
         foreach ($where as $column => $value) {

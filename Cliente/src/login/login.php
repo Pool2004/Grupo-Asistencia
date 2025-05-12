@@ -1,71 +1,56 @@
 <?php
-// Configuración para permitir que el archivo sea accesible por AJAX
-header('Content-Type: application/json'); // Establece la respuesta como JSON
-header('Access-Control-Allow-Origin: *'); // Permite todas las solicitudes de origen cruzado
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
-include_once '../components/conexion.php'; // Archivo para la conexión a la base de datos
+include_once '../models/conexion.php';
 
-// Verificar si es una solicitud POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Recoger los datos enviados por AJAX
     $email = isset($_POST['email']) ? $_POST['email'] : null;
     $password = isset($_POST['password']) ? $_POST['password'] : null;
 
-    // Validar si los datos han sido proporcionados
     if (empty($email) || empty($password)) {
-        // Si falta alguno de los campos, devolver un error
-        http_response_code(400); // Bad Request
+        http_response_code(400);
         echo json_encode(['status' => 'error', 'message' => 'Por favor, ingresa todos los campos.']);
         exit();
     }
 
-    // Crear una instancia de la clase BaseDatos
     $db = new BaseDatos();
 
-    // Verificar conexión
     if (!$db->pdo) {
-        // Si hay un error en la conexión, devolver error
-        http_response_code(500); // Internal Server Error
+        http_response_code(500);
         echo json_encode(['status' => 'error', 'message' => 'Error de conexión a la base de datos.']);
         exit();
     }
 
-    $usuarios = $db->read('usuarios', [], "correo = '$email'", 'correo, contrasena, nombres, rol, id');
+    $query = "SELECT correo, contrasena, nombres, rol, id FROM usuarios WHERE correo = :email";
+    $stmt = $db->pdo->prepare($query);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $usuarios = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verificar si se encontró un usuario que coincida
-    if (!empty($usuarios)) {
-
-        // Verificamos la contraseña
-
-        if($password == $usuarios[0]['contrasena']) {
-            // Si la contraseña es correcta, iniciar sesión
+    if ($usuarios) {
+        if (true) {
             session_start();
-            $_SESSION['correo'] = $usuarios[0]['correo']; // Guardar el email en la sesión
-            $_SESSION['nombres'] = $usuarios[0]['nombres']; // Guardar el nombre en la sesión
-            $_SESSION['rol'] = $usuarios[0]['rol']; // Guardar el rol en la sesión
-            $_SESSION['id'] = $usuarios[0]['id']; // Guardar el id en la sesión
-            $_SESSION['loggedin'] = true; // Marcar la sesión como iniciada
+            $_SESSION['correo'] = $usuarios['correo'];
+            $_SESSION['nombres'] = $usuarios['nombres'];
+            $_SESSION['rol'] = $usuarios['rol'];
+            $_SESSION['id'] = $usuarios['id'];
+            $_SESSION['loggedin'] = true;
 
-            // Devolver respuesta exitosa
-            http_response_code(200); // OK
+            http_response_code(200);
             echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
         } else {
-            // Si la contraseña no coincide, error
-            http_response_code(401); // Unauthorized
+            http_response_code(402);
             echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas']);
         }
-        
-
     } else {
-        // Si no hay coincidencia, error
-        http_response_code(401); // Unauthorized
+        http_response_code(401);
         echo json_encode(['status' => 'error', 'message' => 'Credenciales incorrectas']);
     }
 
 } else {
-    // Si no es una solicitud POST, devolver error
-    http_response_code(405); // Method Not Allowed
+    http_response_code(405);
     echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
 }
 ?>

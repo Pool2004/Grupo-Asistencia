@@ -232,6 +232,36 @@ class PlanController {
         http_response_code(404);
         echo json_encode(['error' => 'El plan no existe.', 'status' => 404]);
     }
+
+
+
+    /** 
+     * Info función planes
+     * 
+     * Función: Obtiene todos los planes de seguros existentes.
+     * 
+     *
+     * @return void 
+     */
+
+     public function planes(){
+
+        header('Content-Type: application/json');
+
+        // Instanciamos el modelo
+        $model = new PlanModel();
+        // Obtenemos los planes y evaluamos si existe el plan previamente
+        $planes = $model->planes();
+
+        if (!$planes) {
+            http_response_code(500);
+            echo json_encode(['error' => 'No hay planes registrados.', 'status' => 500]);
+            return;
+        }
+
+        http_response_code(200);
+        echo json_encode(['message' => 'Planes obtenidos correctamente', 'planes' => $planes, 'status' => 200]);
+     }
 }
 
 

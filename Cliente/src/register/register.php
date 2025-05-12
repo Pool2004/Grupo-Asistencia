@@ -1,9 +1,38 @@
+
 <?php
+/**
+ * registro.php
+ *
+ * Archivo encargado de registrar un nuevo usuario (agente) en el sistema.
+ * Recibe datos por método POST mediante una solicitud AJAX y realiza:
+ * - Validación de campos obligatorios
+ * - Validación de formato de correo
+ * - Verificación de duplicado en la base de datos
+ * - Hash de la contraseña
+ * - Inserción del nuevo usuario en la tabla `usuarios`
+ *
+ * Si el registro es exitoso, retorna un JSON con estado `success`. Si ocurre algún
+ * error de validación, duplicado o conexión, retorna un JSON con estado `error`
+ * y un código HTTP adecuado (400, 409, 500, etc.).
+ *
+ * @method POST
+ * @param string nombres       Nombres del usuario
+ * @param string apellidos     Apellidos del usuario
+ * @param string telefono      Número de teléfono
+ * @param string correo        Correo electrónico (validado)
+ * @param string contrasena    Contraseña en texto plano (se hashea con SHA-256)         Respuesta estructurada con estado y mensaje
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
 // Configuración para permitir que el archivo sea accesible por AJAX
 header('Content-Type: application/json'); // Establece la respuesta como JSON
 header('Access-Control-Allow-Origin: *'); // Permite todas las solicitudes de origen cruzado
 
-include_once '../components/conexion.php'; // Archivo para la conexión a la base de datos
+include_once '../models/conexion.php'; // Archivo para la conexión a la base de datos
 
 // Verificar si es una solicitud POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

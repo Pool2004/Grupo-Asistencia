@@ -98,4 +98,22 @@ class PlanModel {
             return false;
         }
     }
+
+
+    /** Info endpoint getPlanes
+     * 
+     * Función: Obtiene todos los planes creados.
+     *
+     * 
+     * @return array|false Lista de planes o false si ocurre un error.
+     */
+
+    public function planes() {
+        try {
+            // Realizar la eliminación en la base de datos
+            return $this->conn->read('planes');
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }

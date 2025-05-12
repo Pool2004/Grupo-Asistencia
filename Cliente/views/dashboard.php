@@ -74,7 +74,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                 <!-- Home -->
                 <li class="sidebar-item ">
-                    <a href="#" class="sidebar-link" data-page="dashboard">
+                    <a href="#" class="sidebar-link" data-page="dashboard" data-page="dashboard">
                         <i class='bx bxs-home-heart'></i>
                         <span>Home</span>
                     </a>
@@ -125,7 +125,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                 <!-- Reportes -->
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link" data-page="not-found">
                         <i class='bx bxs-file-plus'></i>
                         <span>Reportes</span>
                     </a>
@@ -142,7 +142,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
 
                 <!-- Ajustes -->
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link" data-page="not-found">
                         <i class='bx bxs-cog'></i>
                         <span>Ajustes</span>
                     </a>
@@ -164,7 +164,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
                 <div class="sidebar-link dropdown d-none d-sm-inline-block ms-3 bg-light p-1 border">
                     <select class="form-select form-select-sm bg-transparent border-0 text-primary" aria-label="Seleccionar sucursal">
                         <option value="" selected>Sucursal principal</option>
-                        <option value="">Proximamente...</option>
+                        <option value="" disabled>Proximamente...</option>
                     </select>
                 </div>
 

@@ -34,6 +34,9 @@ $routes = [
     ],
     'DELETE' => [
         '/eliminar' => 'eliminarPlan'
+    ],
+    'GET' => [
+        '/planes' => 'planes'
     ]
 ];
 

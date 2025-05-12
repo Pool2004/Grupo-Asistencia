@@ -1,8 +1,33 @@
 <?php
+/**
+ * sendEmail.php
+ *
+ * Este archivo gestiona el envío de correos electrónicos para la recuperación de contraseña.
+ * Recibe una dirección de correo por método POST, genera un enlace y un html con instrucciones
+ * para el usuario, y envía un correo electrónico con un enlace para restablecer la contraseña.
+ *
+ * Funcionalidades comunes que puede incluir:
+ * - Validación del correo recibido
+ * - Verificación de que el correo esté registrado
+ * - Generación de token único o hash temporal
+ * - Envío de correo usando mail(), PHPMailer o librería SMTP
+ *
+ * Retorna una respuesta JSON con el estado de la operación (éxito o error).
+ *
+ * @method POST
+ * @param string correo   Dirección de correo electrónico del usuario
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+ // Configuración para permitir que el archivo sea accesible por AJAX
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once '../config/vendor/autoload.php'; // Cargamos la librería de PHPMailer
-include_once '../components/conexion.php'; // Llamamos al archivo con la clase pdo para el manejo con la base de datos.
+include_once '../models/conexion.php'; // Llamamos al archivo con la clase pdo para el manejo con la base de datos.
+// Configuramos la cabecera para que el archivo sea accesible por AJAX
 header('Content-Type: application/json');
 
 try{

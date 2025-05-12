@@ -1,3 +1,33 @@
+/**
+ * Script de inicio de sesión
+ *
+ * Este script gestiona el proceso de autenticación de usuarios.
+ * Al hacer clic en el botón con ID `#loginButton`, se recogen los datos del formulario,
+ * se valida que no estén vacíos y se realiza una solicitud AJAX al backend (`login.php`)
+ * para verificar las credenciales del usuario.
+ *
+ * Funciones principales:
+ * - Captura del email y contraseña desde los inputs
+ * - Validación de campos vacíos antes de enviar
+ * - Envío de datos vía POST al servidor
+ * - Procesamiento de la respuesta con SweetAlert
+ * - Redirección al dashboard si el inicio es exitoso
+ *
+ * Elementos HTML involucrados:
+ * - #userEmail → campo del correo electrónico
+ * - #password → campo de la contraseña
+ * - #loginButton → botón que ejecuta el evento
+ *
+ * Librerías utilizadas:
+ * - jQuery
+ * - SweetAlert2
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
 $(document).ready(function() {
     $('#loginButton').click(function(e) {
         e.preventDefault(); // Prevenir el envío tradicional del formulario
@@ -22,7 +52,7 @@ $(document).ready(function() {
 
         // Enviar los datos con AJAX
         $.ajax({
-            url: './Cliente/src/login/login.php', // Ruta a tu archivo PHP
+            url: './Cliente/src/login/login.php', 
             type: 'POST',
             data: {
                 email: email,
@@ -39,7 +69,7 @@ $(document).ready(function() {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirigir a la página principal
-                            window.location.href = './Cliente/views/dashboard.php'; // Cambia esto a la URL de tu página principal
+                            window.location.href = './Cliente/views/dashboard.php'; 
                         }
                     });
                 } else {
@@ -54,10 +84,9 @@ $(document).ready(function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Manejo de error en caso de que la solicitud no se haya realizado correctamente
-                // Código exitoso
                     Swal.fire({
                         title: 'Error',
-                        text: 'Error en el servidor: ' + errorThrown,
+                        text: 'Error en el servidor: ' + jqXHR.status + ' - ' + errorThrown,
                         icon: 'error',
                         confirmButtonText: 'Ok'
                     })

@@ -1,3 +1,32 @@
+/**
+ * Script de recuperación de contraseña (envío de correo)
+ *
+ * Este script se activa cuando el usuario hace clic en el botón de recuperación de contraseña.
+ * Recoge el correo electrónico ingresado en el formulario, muestra un loader visual,
+ * y envía una solicitud AJAX al backend (`sendEmail.php`) para procesar el envío del correo.
+ *
+ * Funciones principales:
+ * - Captura del correo desde el input #userEmail
+ * - Visualización de loaders (animación de carga)
+ * - Envío de datos vía POST a un endpoint PHP
+ * - Manejo de respuestas exitosas o con error usando SweetAlert
+ * - Redirección a la página principal si el proceso es exitoso
+ *
+ * Elementos HTML utilizados:
+ * - #userEmail → campo de entrada del correo
+ * - #sendButton → botón que dispara el evento
+ * - .loader-container y .loader-background → elementos visuales del loader
+ *
+ * Librerías utilizadas:
+ * - jQuery
+ * - SweetAlert2
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
 $(document).ready(function() {
 
     // Recoger loader

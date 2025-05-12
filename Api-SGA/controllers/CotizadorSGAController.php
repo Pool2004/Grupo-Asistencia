@@ -196,4 +196,41 @@ class CotizadorSGAController {
         http_response_code($httpCode);
         echo $response;
     }
+
+
+    /**
+     * Función para obtener los planes de seguros disponibles.
+     *
+     * @return void
+     */
+    public function planes() {
+        header('Content-Type: application/json');
+
+        // Configurar la petición a la API externa
+        $url = 'http://localhost/Entrevista/Api-WS/index.php/planes'; 
+        $ch = curl_init($url);
+
+        // Configurar las opciones de cURL
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+
+        // Ejecutar la petición
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        // Manejar errores de conexión
+        if ($error) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al conectar con la API externa', 'detalle' => $error, 'status' => 500]);
+            return;
+        }
+
+        // Retornar la respuesta de la API externa al cliente
+        http_response_code($httpCode);
+        echo $response;
+    }
 }

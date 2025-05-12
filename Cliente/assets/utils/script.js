@@ -1,3 +1,40 @@
+/**
+ * Script de manejo de sidebar y carga dinámica de contenido
+ *
+ * Este script gestiona las interacciones con un sidebar, permitiendo su expansión
+ * o colapso mediante un botón. Además, permite la carga dinámica de contenido
+ * dentro de un área principal de la página al hacer clic en los enlaces del sidebar.
+ * También incluye la integración de una gráfica utilizando la librería Chart.js,
+ * mostrando datos sobre la población mundial proyectada para el año 2050.
+ *
+ * Funcionalidades principales:
+ * - Expansión y colapso del sidebar al hacer clic en el botón correspondiente
+ * - Carga dinámica de vistas mediante AJAX al hacer clic en los enlaces del sidebar
+ * - Renderizado de contenido HTML en la sección principal
+ * - Manejo de errores de carga con notificación mediante SweetAlert2
+ * - Creación y visualización de una gráfica horizontal con Chart.js
+ *
+ * Elementos HTML involucrados:
+ * - .toggle-btn → botón para expandir o colapsar el sidebar
+ * - #sidebar → contenedor del sidebar que se expande o colapsa
+ * - #icon → icono dentro del botón que cambia al hacer clic
+ * - .sidebar-link → enlaces del sidebar que cargan contenido dinámico
+ * - main.content → área principal donde se renderiza el contenido cargado
+ * - #bar-chart-horizontal → elemento de la gráfica de Chart.js
+ *
+ * Librerías utilizadas:
+ * - jQuery
+ * - SweetAlert2
+ * - Chart.js
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
+
+
 $(document).ready(function () {
 
     // ========================== Manejo sidebar

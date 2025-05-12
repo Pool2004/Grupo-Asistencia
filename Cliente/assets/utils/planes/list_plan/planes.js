@@ -1,8 +1,40 @@
+/**
+ * Script de gestión de planes de seguros
+ *
+ * Este script maneja la visualización, eliminación y actualización de planes de seguros
+ * desde el frontend utilizando llamadas AJAX hacia la API intermedia (SGA).
+ * Al cargar la página, obtiene los planes disponibles. También permite eliminar
+ * y actualizar registros mediante interacción directa con botones en la tabla.
+ *
+ * Funcionalidades principales:
+ * - Consulta de planes mediante GET a /planes
+ * - Renderizado dinámico de los resultados en una tabla
+ * - Eliminación de un plan mediante DELETE a /eliminar con confirmación
+ * - Actualización de un plan mediante PUT a /actualizar usando modal Bootstrap
+ *
+ * Elementos HTML involucrados:
+ * - #bodyOfertas → cuerpo de la tabla donde se insertan los planes
+ * - .bx-edit-alt → ícono para actualizar un plan (muestra modal)
+ * - .bx-trash-alt → ícono para eliminar un plan
+ * - #modalActualizarPlan → modal Bootstrap para editar
+ * - #formActualizarPlan → formulario dentro del modal
+ *
+ * Librerías utilizadas:
+ * - jQuery
+ * - SweetAlert2
+ * - Bootstrap (modal)
+ *
+ * @author Dev Jean Paul Ordóñez
+ * @date   11/05/2025
+ */
+
+
+
 $(document).ready(function () {
-    console.log("Document ready");
+
     $.ajax({
-        url: "../src/planes/consultarPlanes.php", // Ajusta según tu ruta real
-        type: "POST",
+        url: "http://localhost/Entrevista/Api-SGA/index.php/planes", // Endpoint para obtener los planes en la API-SGA
+        type: "GET",
         contentType: "application/json",
         success: function (res) {
             if (!res.planes || res.planes.length === 0) {
@@ -25,7 +57,7 @@ $(document).ready(function () {
             $("#tablaOfertas").show();
         },
         error: function (xhr) {
-            console.log(xhr);
+            
             let errorMsg = xhr.responseJSON || "No hay planes registrados";
             if (xhr.responseJSON && xhr.responseJSON.error) {
                 errorMsg = xhr.responseJSON.error;
@@ -36,7 +68,7 @@ $(document).ready(function () {
 
 
     $(document).on("click", ".bx-trash-alt", function (e) {
-        console.log("click");
+    
         e.preventDefault();
         const id = $(this).closest("tr").data("id");
         Swal.fire({
@@ -70,7 +102,7 @@ $(document).ready(function () {
 
                     error: function (xhr) {
                         let errorMsg = "Error inesperado al conectar con el servidor";
-                        console.log(xhr);
+                    
                         try {
                             const res = JSON.parse(xhr.responseText);
                             if (res.status === 'error' && res.message) {
